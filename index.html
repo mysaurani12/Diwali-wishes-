@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Earn ₹50 Bonus | UPI Verification</title>
+    <title>Online Earning Program</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,10 +13,9 @@
         }
         
         body {
-            background: #f0f8ff;
+            background: #f5f7fa;
             color: #333;
             line-height: 1.6;
-            padding-bottom: 30px;
         }
         
         .container {
@@ -25,154 +24,47 @@
             padding: 15px;
         }
         
-        /* Wallet Display */
-        .wallet {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
+        /* Header */
+        .page-header {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
             color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin: -15px -15px 20px -15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        /* Wallet Section */
+        .wallet-section {
+            background: white;
+            border-radius: 15px;
             padding: 15px;
-            border-radius: 10px;
             margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .wallet-label {
+            font-size: 16px;
+            color: #666;
         }
         
         .wallet-amount {
             font-size: 24px;
             font-weight: bold;
-        }
-        
-        .wallet-label {
-            font-size: 14px;
-        }
-        
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        
-        /* Input Section */
-        .input-section {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
-        }
-        
-        .input-title {
-            color: #2E7D32;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        
-        .input-group {
-            margin-bottom: 15px;
-        }
-        
-        .input-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        
-        .input-note {
-            font-size: 13px;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        /* UPI Examples */
-        .upi-examples {
-            background: #f9f9f9;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        
-        .example-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        
-        .example-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        
-        .example-icon {
-            margin-right: 8px;
             color: #4CAF50;
         }
         
-        /* Action Buttons */
-        .action-btn {
-            background: linear-gradient(to right, #4CAF50, #2E7D32);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            width: 100%;
-            margin: 10px 0;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
-        }
-        
-        .whatsapp-btn {
-            background: #25D366;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .whatsapp-icon {
-            margin-right: 8px;
-            font-size: 20px;
-        }
-        
-        /* Status Messages */
-        .status-message {
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-        }
-        
-        .success-status {
-            background: #e8f5e9;
-            color: #2E7D32;
-            border-left: 4px solid #4CAF50;
-        }
-        
-        .bonus-status {
-            background: #fff8e1;
-            color: #ff6f00;
-            border-left: 4px solid #ff9800;
-        }
-        
-        /* Progress Tracker */
+        /* Progress Steps */
         .progress-steps {
             display: flex;
             justify-content: space-between;
@@ -215,9 +107,121 @@
             transition: width 0.5s;
         }
         
+        /* Step Sections */
+        .step-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            display: none;
+        }
+        
+        .step-section.active {
+            display: block;
+        }
+        
+        .step-title {
+            color: #2E7D32;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-number {
+            background: #4CAF50;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        /* Form Elements */
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        .input-note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Action Buttons */
+        .action-btn {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            margin: 20px 0 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .whatsapp-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        
+        .withdraw-btn {
+            background: linear-gradient(to right, #2196F3, #1976D2);
+        }
+        
+        /* Status Messages */
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2E7D32;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #f44336;
+            border-left: 4px solid #f44336;
+        }
+        
         /* Bonus Info */
         .bonus-info {
-            background: #f5f5f5;
+            background: #f9f9f9;
             border-radius: 10px;
             padding: 15px;
             margin: 15px 0;
@@ -272,61 +276,63 @@
 </head>
 <body>
     <div class="container">
-        <!-- Wallet Display -->
-        <div class="wallet">
-            <div class="wallet-label">Your Earnings:</div>
-            <div class="wallet-amount">₹<span id="walletAmount">0</span></div>
-        </div>
-        
         <!-- Header -->
-        <div class="header">
-            <h1>Earn ₹50 Bonus!</h1>
-            <p>Complete these steps to unlock your earnings</p>
+        <div class="page-header">
+            <h1 class="header-title">Online Earning</h1>
+            <p>Complete 3 simple steps to withdraw your earnings</p>
         </div>
         
-        <!-- Progress Tracker -->
+        <!-- Wallet Display -->
+        <div class="wallet-section">
+            <div class="wallet-label">Your Earnings:</div>
+            <div class="wallet-amount">₹<span id="walletBalance">0</span></div>
+        </div>
+        
+        <!-- Progress Steps -->
         <div class="progress-steps">
             <div class="progress-step active">1</div>
             <div class="progress-step">2</div>
             <div class="progress-step">3</div>
             <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
             </div>
         </div>
         
-        <!-- Step 1: Payment Details -->
-        <div id="step1" class="input-section">
-            <h2 class="input-title">Step 1: Verify Your UPI ID (Earn ₹12)</h2>
-            
-            <div class="input-group">
-                <label class="input-label">Full Name</label>
-                <input type="text" id="userName" class="input-field" placeholder="Enter your full name" required />
+        <!-- Step 1: UPI Verification -->
+        <div id="step1" class="step-section active">
+            <div class="step-title">
+                <div class="step-number">1</div>
+                <h3>Verify Your UPI ID</h3>
             </div>
             
             <div class="input-group">
                 <label class="input-label">UPI ID</label>
-                <input type="text" id="upiId" class="input-field" placeholder="yourname@upi" required />
+                <input type="text" id="upiId" class="input-field" placeholder="yourname@upi" />
                 <p class="input-note">Example: name@oksbi, name@ybl, name@paytm</p>
             </div>
             
             <div class="bonus-info">
                 <div class="bonus-item">
-                    <span>UPI Verification Bonus:</span>
-                    <span class="bonus-amount">+ ₹12</span>
+                    <span>Verification Bonus:</span>
+                    <span class="bonus-amount">+ ₹25</span>
                 </div>
                 <div class="bonus-item">
-                    <span>Total Earnings After This Step:</span>
-                    <span class="bonus-amount">₹12</span>
+                    <span>Total After Verification:</span>
+                    <span class="bonus-amount">₹25</span>
                 </div>
             </div>
             
-            <button id="verifyBtn" class="action-btn">VERIFY & EARN ₹12</button>
+            <button id="verifyBtn" class="action-btn">VERIFY & EARN ₹25</button>
         </div>
         
-        <!-- Step 2: WhatsApp Share (Hidden Initially) -->
-        <div id="step2" class="input-section" style="display:none">
-            <h2 class="input-title">Step 2: Share & Earn More (Up to ₹38)</h2>
-            <p>Share with friends to earn additional bonuses:</p>
+        <!-- Step 2: WhatsApp Share -->
+        <div id="step2" class="step-section">
+            <div class="step-title">
+                <div class="step-number">2</div>
+                <h3>Share & Earn More</h3>
+            </div>
+            
+            <p>Share with friends to earn additional money:</p>
             
             <div class="share-options">
                 <div class="share-option" id="shareGroup">
@@ -344,34 +350,38 @@
             <div class="bonus-info">
                 <div class="bonus-item">
                     <span>Current Earnings:</span>
-                    <span class="bonus-amount">₹<span id="currentEarnings">12</span></span>
+                    <span class="bonus-amount">₹<span id="currentEarnings">25</span></span>
                 </div>
                 <div class="bonus-item">
-                    <span>Potential Additional Earnings:</span>
-                    <span class="bonus-amount">₹<span id="potentialEarnings">0</span></span>
+                    <span>Additional Earnings Possible:</span>
+                    <span class="bonus-amount">₹<span id="additionalEarnings">50</span></span>
                 </div>
                 <div class="bonus-item">
-                    <span>Total Possible Earnings:</span>
-                    <span class="bonus-amount">₹<span id="totalPossible">12</span></span>
+                    <span>Total Possible:</span>
+                    <span class="bonus-amount">₹<span id="totalPossible">75</span></span>
                 </div>
             </div>
             
-            <div id="shareStatus" class="status-message success-status" style="display:none">
-                ✓ Sharing successful! ₹<span id="addedAmount">0</span> added to your wallet.
+            <div id="shareStatus" class="status-message success-message" style="display:none">
+                +₹<span id="addedAmount">0</span> added to your wallet!
             </div>
             
             <button id="proceedBtn" class="action-btn" style="display:none; background:#ff9800">
-                PROCEED TO EARN ₹25 MORE
+                PROCEED TO STEP 3
             </button>
         </div>
         
-        <!-- Step 3: Final Step (Hidden Initially) -->
-        <div id="step3" class="input-section" style="display:none">
-            <h2 class="input-title">Step 3: Complete Tasks (Earn ₹25)</h2>
-            <p>Complete these simple tasks to earn your remaining ₹25:</p>
+        <!-- Step 3: Complete Tasks -->
+        <div id="step3" class="step-section">
+            <div class="step-title">
+                <div class="step-number">3</div>
+                <h3>Complete Tasks & Withdraw</h3>
+            </div>
             
-            <div class="status-message bonus-status">
-                ✓ You've already earned ₹<span id="earnedSoFar">0</span>!
+            <p>Complete these simple tasks to earn your final ₹25:</p>
+            
+            <div class="status-message success-message">
+                You've earned ₹<span id="earnedSoFar">50</span> already! Complete tasks to reach ₹75.
             </div>
             
             <div class="bonus-info">
@@ -380,40 +390,110 @@
                     <span class="bonus-amount">+ ₹25</span>
                 </div>
                 <div class="bonus-item">
-                    <span>Total Earnings After Completion:</span>
-                    <span class="bonus-amount">₹50</span>
+                    <span>Total After Completion:</span>
+                    <span class="bonus-amount">₹75</span>
                 </div>
             </div>
             
-            <button id="startEarningBtn" class="action-btn">
-                START TASKS & EARN ₹25
+            <button id="completeTasksBtn" class="action-btn">
+                COMPLETE TASKS & EARN ₹25
             </button>
+        </div>
+        
+        <!-- Withdrawal Section -->
+        <div id="withdrawalSection" class="step-section">
+            <div class="step-title">
+                <div class="step-number">✓</div>
+                <h3>Withdraw Your Earnings</h3>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">Amount to Withdraw (Minimum ₹75)</label>
+                <input type="number" id="withdrawAmount" class="input-field" placeholder="Enter amount" min="75" />
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">UPI ID for Payment</label>
+                <input type="text" id="withdrawUpi" class="input-field" placeholder="yourname@upi" />
+                <p class="input-note">Money will be sent within 24-72 hours</p>
+            </div>
+            
+            <div id="withdrawError" class="status-message error-message" style="display:none">
+                Please enter amount above ₹75 and valid UPI ID
+            </div>
+            
+            <button id="withdrawBtn" class="action-btn withdraw-btn">
+                REQUEST WITHDRAWAL
+            </button>
+            
+            <div id="withdrawSuccess" class="status-message success-message" style="display:none">
+                <h3>Withdrawal Request Successful!</h3>
+                <p>₹<span id="successAmount">0</span> will be credited to your account within 24-72 hours.</p>
+                <p>The amount has been deducted from your wallet.</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Track user data
-        let userData = {
+        // User data
+        let user = {
+            wallet: 0,
             upiVerified: false,
             shares: {
                 groups: 0,
                 friends: 0
             },
-            earnings: 0
+            tasksCompleted: false
         };
         
         // Update wallet display
         function updateWallet() {
-            document.getElementById('walletAmount').textContent = userData.earnings;
-            document.getElementById('currentEarnings').textContent = userData.earnings;
+            document.getElementById('walletBalance').textContent = user.wallet;
+            document.getElementById('currentEarnings').textContent = user.wallet;
+            document.getElementById('earnedSoFar').textContent = user.wallet;
             
-            // Calculate potential earnings
-            const potential = (userData.shares.groups * 5) + (userData.shares.friends * 2);
-            document.getElementById('potentialEarnings').textContent = potential;
-            document.getElementById('totalPossible').textContent = userData.earnings + potential;
+            // Calculate additional earnings possible
+            const additional = Math.max(0, 75 - user.wallet);
+            document.getElementById('additionalEarnings').textContent = additional;
+            document.getElementById('totalPossible').textContent = Math.min(user.wallet + additional, 75);
+            
+            // Update progress bar
+            const progress = (user.wallet / 75) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Show proceed button if wallet reaches ₹60 in step 2
+            if(user.wallet >= 60 && document.getElementById('step2').classList.contains('active')) {
+                document.getElementById('proceedBtn').style.display = 'block';
+            }
+            
+            // Automatically show withdrawal if balance >= 75
+            if(user.wallet >= 75) {
+                showStep('withdrawalSection');
+            }
         }
         
-        // Verify Payment Details
+        // Show specific step
+        function showStep(stepId) {
+            // Hide all steps
+            document.querySelectorAll('.step-section').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show selected step
+            document.getElementById(stepId).classList.add('active');
+            
+            // Update progress steps
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach((step, index) => {
+                step.classList.remove('active');
+                if(stepId === 'step1' && index === 0) step.classList.add('active');
+                if(stepId === 'step2' && index <= 1) step.classList.add('active');
+                if(stepId === 'step3' && index <= 2) step.classList.add('active');
+                if(stepId === 'withdrawalSection') steps.forEach(s => s.classList.add('active'));
+            });
+        }
+        
+        // Step 1: Verify UPI
         document.getElementById('verifyBtn').addEventListener('click', function() {
             const upiId = document.getElementById('upiId').value.trim();
             
@@ -422,19 +502,16 @@
                 return;
             }
             
-            // Store UPI verification
-            userData.upiVerified = true;
-            userData.earnings += 12; // ₹12 for UPI verification
-            
-            // Update UI
+            // Verify UPI
+            user.upiVerified = true;
+            user.wallet += 25;
             updateWallet();
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
-            document.querySelectorAll('.progress-step')[1].classList.add('active');
-            document.getElementById('progressFill').style.width = '50%';
+            
+            // Move to step 2
+            showStep('step2');
         });
         
-        // WhatsApp Share Options
+        // Step 2: WhatsApp Share
         document.getElementById('shareGroup').addEventListener('click', function() {
             shareOpportunity('group');
         });
@@ -444,52 +521,88 @@
         });
         
         function shareOpportunity(type) {
-            const shareText = "💰 Earn ₹500 Daily! Just complete simple tasks from home. I've already earned ₹" + userData.earnings + "! ";
+            const shareText = "💰 Earn money online! I've already earned ₹" + user.wallet + " with this program. Join now: ";
             const shareUrl = window.location.href;
             const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + shareUrl)}`;
             
             window.open(whatsappUrl, '_blank');
             
-            // Track share and add bonus
-            if(type === 'group') {
-                userData.shares.groups++;
-                userData.earnings += 5;
-            } else {
-                userData.shares.friends++;
-                userData.earnings += 2;
-            }
+            // Add to earnings
+            const amount = type === 'group' ? 5 : 2;
+            if(type === 'group') user.shares.groups++;
+            else user.shares.friends++;
             
-            // Update UI
+            user.wallet += amount;
             updateWallet();
-            document.getElementById('addedAmount').textContent = type === 'group' ? '5' : '2';
-            document.getElementById('shareStatus').style.display = 'block';
-            document.getElementById('proceedBtn').style.display = 'block';
             
-            // Scroll to show status
-            document.getElementById('shareStatus').scrollIntoView({ behavior: 'smooth' });
+            // Show success message
+            document.getElementById('addedAmount').textContent = amount;
+            document.getElementById('shareStatus').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('shareStatus').style.display = 'none';
+            }, 3000);
         }
         
-        // Proceed to next step
+        // Proceed to step 3
         document.getElementById('proceedBtn').addEventListener('click', function() {
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step3').style.display = 'block';
-            document.getElementById('earnedSoFar').textContent = userData.earnings;
-            document.querySelectorAll('.progress-step')[2].classList.add('active');
-            document.getElementById('progressFill').style.width = '100%';
+            showStep('step3');
         });
         
-        // Final Start Earning Button (YOUR REFERRAL LINK)
-        document.getElementById('startEarningBtn').addEventListener('click', function() {
-            // Add final ₹25 bonus
-            userData.earnings += 25;
+        // Step 3: Complete Tasks
+        document.getElementById('completeTasksBtn').addEventListener('click', function() {
+            user.tasksCompleted = true;
+            user.wallet += 25;
             updateWallet();
             
-            // REPLACE THIS WITH YOUR ACTUAL REFERRAL LINK
-            const referralLink = "https://your-earning-app.com/ref?code=BONUS50";
-            
-            // Redirect to your app
-            window.location.href = referralLink;
+            // Show withdrawal section
+            showStep('withdrawalSection');
         });
+        
+        // Withdrawal Request
+        document.getElementById('withdrawBtn').addEventListener('click', function() {
+            const amount = parseInt(document.getElementById('withdrawAmount').value);
+            const upiId = document.getElementById('withdrawUpi').value.trim();
+            
+            // Validate
+            if(isNaN(amount) || amount < 75) {
+                document.getElementById('withdrawError').textContent = 'Minimum withdrawal amount is ₹75';
+                document.getElementById('withdrawError').style.display = 'block';
+                return;
+            }
+            
+            if(amount > user.wallet) {
+                document.getElementById('withdrawError').textContent = 'You don\'t have enough balance';
+                document.getElementById('withdrawError').style.display = 'block';
+                return;
+            }
+            
+            if(!upiId.includes('@')) {
+                document.getElementById('withdrawError').textContent = 'Please enter a valid UPI ID';
+                document.getElementById('withdrawError').style.display = 'block';
+                return;
+            }
+            
+            // Process withdrawal
+            document.getElementById('withdrawError').style.display = 'none';
+            document.getElementById('successAmount').textContent = amount;
+            
+            // Deduct from wallet (in real app, this would be server-side)
+            user.wallet -= amount;
+            updateWallet();
+            
+            // Show success
+            document.getElementById('withdrawSuccess').style.display = 'block';
+            
+            // In real implementation, send to server
+            console.log('Withdrawal processed:', {
+                amount: amount,
+                upiId: upiId,
+                newBalance: user.wallet
+            });
+        });
+        
+        // Initialize
+        updateWallet();
     </script>
 </body>
 </html>
