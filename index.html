@@ -64,6 +64,29 @@
             color: #4CAF50;
         }
         
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+        }
+        
+        .nav-tab.active {
+            background: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        
         /* Progress Steps */
         .progress-steps {
             display: flex;
@@ -307,102 +330,111 @@
             <div class="wallet-amount">₹<span id="walletBalance">0</span></div>
         </div>
         
-        <!-- Progress Steps -->
-        <div class="progress-steps">
-            <div class="progress-step active">1</div>
-            <div class="progress-step">2</div>
-            <div class="progress-step">3</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <div class="nav-tab active" id="tasksTab">Earning Tasks</div>
+            <div class="nav-tab" id="walletTab">My Wallet</div>
+        </div>
+        
+        <!-- Tasks Section -->
+        <div id="tasksSection">
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="progress-step active">1</div>
+                <div class="progress-step">2</div>
+                <div class="progress-step">3</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <!-- Step 1: UPI Verification -->
+            <div id="step1" class="step-section active">
+                <div class="step-title">
+                    <div class="step-number">1</div>
+                    <h3>Verify Your UPI ID</h3>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">UPI ID</label>
+                    <input type="text" id="upiId" class="input-field" placeholder="yourname@upi" />
+                    <p class="input-note">Example: name@oksbi, name@ybl, name@paytm</p>
+                </div>
+                
+                <div class="bonus-info">
+                    <div class="bonus-item">
+                        <span>Verification Bonus:</span>
+                        <span class="bonus-amount">+ ₹25</span>
+                    </div>
+                </div>
+                
+                <button id="verifyBtn" class="action-btn">VERIFY & EARN ₹25</button>
+            </div>
+            
+            <!-- Step 2: WhatsApp Share -->
+            <div id="step2" class="step-section">
+                <div class="step-title">
+                    <div class="step-number">2</div>
+                    <h3>Share & Earn More</h3>
+                </div>
+                
+                <p>Share with friends to earn additional money:</p>
+                
+                <div class="share-options">
+                    <div class="share-option" id="shareGroup">
+                        <div class="share-icon">👥</div>
+                        <div class="share-label">Share in Group</div>
+                        <div class="share-amount">+ ₹5 per group</div>
+                    </div>
+                    <div class="share-option" id="shareFriend">
+                        <div class="share-icon">👤</div>
+                        <div class="share-label">Share with Friend</div>
+                        <div class="share-amount">+ ₹2 per friend</div>
+                    </div>
+                </div>
+                
+                <div class="bonus-info">
+                    <div class="bonus-item">
+                        <span>Current Earnings:</span>
+                        <span class="bonus-amount">₹<span id="currentEarnings">25</span></span>
+                    </div>
+                    <div class="bonus-item">
+                        <span>Additional Earnings Possible:</span>
+                        <span class="bonus-amount">₹<span id="additionalEarnings">50</span></span>
+                    </div>
+                </div>
+                
+                <div id="shareStatus" class="status-message success-message" style="display:none">
+                    +₹<span id="addedAmount">0</span> added to your wallet!
+                </div>
+            </div>
+            
+            <!-- Step 3: Complete Tasks -->
+            <div id="step3" class="step-section">
+                <div class="step-title">
+                    <div class="step-number">3</div>
+                    <h3>Complete Your Task</h3>
+                </div>
+                
+                <div class="task-status">
+                    <div class="task-status-icon">📱</div>
+                    <h3>Complete your task to unlock withdrawal</h3>
+                    <p>You must complete the task to receive your final ₹25 and be eligible to withdraw</p>
+                </div>
+                
+                <div class="status-message info-message">
+                    <p>Current Balance: ₹<span id="preTaskBalance">50</span></p>
+                    <p>After Task Completion: ₹75</p>
+                </div>
+                
+                <button id="completeTaskBtn" class="action-btn task-btn">
+                    COMPLETE TASK NOW
+                </button>
             </div>
         </div>
         
-        <!-- Step 1: UPI Verification -->
-        <div id="step1" class="step-section active">
-            <div class="step-title">
-                <div class="step-number">1</div>
-                <h3>Verify Your UPI ID</h3>
-            </div>
-            
-            <div class="input-group">
-                <label class="input-label">UPI ID</label>
-                <input type="text" id="upiId" class="input-field" placeholder="yourname@upi" />
-                <p class="input-note">Example: name@oksbi, name@ybl, name@paytm</p>
-            </div>
-            
-            <div class="bonus-info">
-                <div class="bonus-item">
-                    <span>Verification Bonus:</span>
-                    <span class="bonus-amount">+ ₹25</span>
-                </div>
-            </div>
-            
-            <button id="verifyBtn" class="action-btn">VERIFY & EARN ₹25</button>
-        </div>
-        
-        <!-- Step 2: WhatsApp Share -->
-        <div id="step2" class="step-section">
-            <div class="step-title">
-                <div class="step-number">2</div>
-                <h3>Share & Earn More</h3>
-            </div>
-            
-            <p>Share with friends to earn additional money:</p>
-            
-            <div class="share-options">
-                <div class="share-option" id="shareGroup">
-                    <div class="share-icon">👥</div>
-                    <div class="share-label">Share in Group</div>
-                    <div class="share-amount">+ ₹5 per group</div>
-                </div>
-                <div class="share-option" id="shareFriend">
-                    <div class="share-icon">👤</div>
-                    <div class="share-label">Share with Friend</div>
-                    <div class="share-amount">+ ₹2 per friend</div>
-                </div>
-            </div>
-            
-            <div class="bonus-info">
-                <div class="bonus-item">
-                    <span>Current Earnings:</span>
-                    <span class="bonus-amount">₹<span id="currentEarnings">25</span></span>
-                </div>
-                <div class="bonus-item">
-                    <span>Additional Earnings Possible:</span>
-                    <span class="bonus-amount">₹<span id="additionalEarnings">50</span></span>
-                </div>
-            </div>
-            
-            <div id="shareStatus" class="status-message success-message" style="display:none">
-                +₹<span id="addedAmount">0</span> added to your wallet!
-            </div>
-        </div>
-        
-        <!-- Step 3: Complete Tasks -->
-        <div id="step3" class="step-section">
-            <div class="step-title">
-                <div class="step-number">3</div>
-                <h3>Complete Your Task</h3>
-            </div>
-            
-            <div class="task-status">
-                <div class="task-status-icon">📱</div>
-                <h3>Complete your task to unlock withdrawal</h3>
-                <p>You must complete the task to receive your final ₹25 and be eligible to withdraw</p>
-            </div>
-            
-            <div class="status-message info-message">
-                <p>Current Balance: ₹<span id="preTaskBalance">50</span></p>
-                <p>After Task Completion: ₹75</p>
-            </div>
-            
-            <button id="completeTaskBtn" class="action-btn task-btn">
-                COMPLETE TASK NOW
-            </button>
-        </div>
-        
-        <!-- Wallet/Withdrawal Section -->
-        <div id="walletPage" class="step-section">
+        <!-- Wallet Section -->
+        <div id="walletSection" class="step-section" style="display:none">
             <div class="step-title">
                 <div class="step-number">💰</div>
                 <h3>Your Earnings</h3>
@@ -519,9 +551,23 @@
                 if(stepId === 'step1' && index === 0) step.classList.add('active');
                 if(stepId === 'step2' && index <= 1) step.classList.add('active');
                 if(stepId === 'step3' && index <= 2) step.classList.add('active');
-                if(stepId === 'walletPage') steps.forEach(s => s.classList.add('active'));
             });
         }
+        
+        // Switch between Tasks and Wallet tabs
+        document.getElementById('tasksTab').addEventListener('click', function() {
+            document.getElementById('tasksTab').classList.add('active');
+            document.getElementById('walletTab').classList.remove('active');
+            document.getElementById('tasksSection').style.display = 'block';
+            document.getElementById('walletSection').style.display = 'none';
+        });
+        
+        document.getElementById('walletTab').addEventListener('click', function() {
+            document.getElementById('walletTab').classList.add('active');
+            document.getElementById('tasksTab').classList.remove('active');
+            document.getElementById('walletSection').style.display = 'block';
+            document.getElementById('tasksSection').style.display = 'none';
+        });
         
         // Step 1: Verify UPI
         document.getElementById('verifyBtn').addEventListener('click', function() {
@@ -588,12 +634,15 @@
                 user.taskCompleted = true;
                 user.wallet += 25;
                 updateWallet();
-                showStep('walletPage');
+                
+                // Show wallet tab but don't auto-show withdrawal
+                document.getElementById('walletTab').click();
             }, 3000);
         });
         
         // Go to task from wallet page
         document.getElementById('goToTaskBtn').addEventListener('click', function() {
+            document.getElementById('tasksTab').click();
             showStep('step3');
         });
         
@@ -645,4 +694,4 @@
         showStep('step1');
     </script>
 </body>
-</html>
+    </html>
