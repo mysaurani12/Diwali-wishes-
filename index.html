@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn ₹500 Daily | UPI Verification</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 30px;
+        }
+        
+        .container {
+            max-width: 100%;
+            width: 100%;
+            padding: 15px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin: -15px -15px 20px -15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        /* Input Section */
+        .input-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+        
+        .input-title {
+            color: #2E7D32;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        .input-note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* UPI Examples */
+        .upi-examples {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .example-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .example-icon {
+            margin-right: 8px;
+            color: #4CAF50;
+        }
+        
+        /* Action Buttons */
+        .action-btn {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            margin: 10px 0;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .whatsapp-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        
+        /* Status Messages */
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .success-status {
+            background: #e8f5e9;
+            color: #2E7D32;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        /* Progress Tracker */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            background: #e0e0e0;
+            color: #666;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .progress-step.active {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            width: 0%;
+            transition: width 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Instant Money Transfer</h1>
+            <p>Enter your payment details to start earning</p>
+        </div>
+        
+        <!-- Progress Tracker -->
+        <div class="progress-steps">
+            <div class="progress-step active">1</div>
+            <div class="progress-step">2</div>
+            <div class="progress-step">3</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <!-- Step 1: Payment Details -->
+        <div id="step1" class="input-section">
+            <h2 class="input-title">Enter Your Payment Details</h2>
+            
+            <div class="input-group">
+                <label class="input-label">Full Name</label>
+                <input type="text" id="userName" class="input-field" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">Payment Method</label>
+                <select id="paymentMethod" class="input-field">
+                    <option value="upi">UPI ID</option>
+                    <option value="number">UPI Number</option>
+                </select>
+            </div>
+            
+            <div id="upiInputGroup" class="input-group">
+                <label class="input-label">UPI ID</label>
+                <input type="text" id="upiId" class="input-field" placeholder="yourname@upi" required>
+                <p class="input-note">Example: name@oksbi, name@ybl, name@paytm</p>
+            </div>
+            
+            <div id="numberInputGroup" class="input-group" style="display:none">
+                <label class="input-label">Mobile Number</label>
+                <input type="tel" id="mobileNumber" class="input-field" placeholder="98XXXXXX21" required>
+                <p class="input-note">Mobile number linked to your UPI</p>
+            </div>
+            
+            <div class="upi-examples">
+                <div class="example-title">Common UPI ID Formats:</div>
+                <div class="example-item">
+                    <span class="example-icon">•</span>
+                    <span>name@oksbi (PhonePe)</span>
+                </div>
+                <div class="example-item">
+                    <span class="example-icon">•</span>
+                    <span>name@ybl (Google Pay)</span>
+                </div>
+                <div class="example-item">
+                    <span class="example-icon">•</span>
+                    <span>name@paytm (PayTM)</span>
+                </div>
+                <div class="example-item">
+                    <span class="example-icon">•</span>
+                    <span>98XXXXXX21@upi (Mobile Number)</span>
+                </div>
+            </div>
+            
+            <button id="verifyBtn" class="action-btn">VERIFY PAYMENT DETAILS</button>
+        </div>
+        
+        <!-- Step 2: WhatsApp Share (Hidden Initially) -->
+        <div id="step2" class="input-section" style="display:none">
+            <h2 class="input-title">Share With Friends</h2>
+            <p>Share this opportunity with 1 WhatsApp group to verify your account:</p>
+            
+            <button id="whatsappBtn" class="action-btn whatsapp-btn">
+                <span class="whatsapp-icon">📱</span> SHARE ON WHATSAPP
+            </button>
+            
+            <div id="shareStatus" class="status-message success-status">
+                ✓ Successfully shared! Proceeding to next step...
+            </div>
+        </div>
+        
+        <!-- Step 3: Final Step (Hidden Initially) -->
+        <div id="step3" class="input-section" style="display:none">
+            <h2 class="input-title">Start Earning Now!</h2>
+            <p>Your payment details have been verified and account is ready!</p>
+            
+            <div id="finalStatus" class="status-message success-status">
+                ✓ Verification complete! You can now start earning.
+            </div>
+            
+            <button id="startEarningBtn" class="action-btn">
+                START EARNING NOW
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Track progress
+        let currentStep = 1;
+        
+        // Toggle between UPI ID and Number input
+        document.getElementById('paymentMethod').addEventListener('change', function() {
+            if(this.value === 'number') {
+                document.getElementById('upiInputGroup').style.display = 'none';
+                document.getElementById('numberInputGroup').style.display = 'block';
+            } else {
+                document.getElementById('upiInputGroup').style.display = 'block';
+                document.getElementById('numberInputGroup').style.display = 'none';
+            }
+        });
+        
+        // Verify Payment Details
+        document.getElementById('verifyBtn').addEventListener('click', function() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            let paymentId = '';
+            
+            if(paymentMethod === 'upi') {
+                paymentId = document.getElementById('upiId').value.trim();
+                if(!paymentId.includes('@')) {
+                    alert('Please enter a valid UPI ID (example: name@upi)');
+                    return;
+                }
+            } else {
+                paymentId = document.getElementById('mobileNumber').value.trim();
+                if(paymentId.length !== 10 || isNaN(paymentId)) {
+                    alert('Please enter a valid 10-digit mobile number');
+                    return;
+                }
+            }
+            
+            // Store payment details (in real app, send to server)
+            localStorage.setItem('payment_method', paymentMethod);
+            localStorage.setItem('payment_id', paymentId);
+            
+            // Move to next step
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+            document.querySelectorAll('.progress-step')[1].classList.add('active');
+            document.getElementById('progressFill').style.width = '50%';
+            currentStep = 2;
+        });
+        
+        // WhatsApp Share
+        document.getElementById('whatsappBtn').addEventListener('click', function() {
+            const shareText = "💰 Earn ₹500 Daily! Just complete simple tasks from home. Payments directly to your UPI. Limited spots available! ";
+            const shareUrl = window.location.href;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + shareUrl)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            
+            // Show status and proceed after 2 seconds
+            document.getElementById('shareStatus').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+                document.querySelectorAll('.progress-step')[2].classList.add('active');
+                document.getElementById('progressFill').style.width = '100%';
+                currentStep = 3;
+            }, 2000);
+        });
+        
+        // Final Start Earning Button (YOUR REFERRAL LINK)
+        document.getElementById('startEarningBtn').addEventListener('click', function() {
+            // REPLACE THIS WITH YOUR ACTUAL REFERRAL LINK
+            const referralLink = "https://your-earning-app.com/ref?code=MOBILE123";
+            
+            // Redirect to your app
+            window.location.href = referralLink;
+        });
+    </script>
+</body>
+  </html>
