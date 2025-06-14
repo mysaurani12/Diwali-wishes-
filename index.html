@@ -189,13 +189,12 @@
             justify-content: center;
         }
         
-        .whatsapp-icon {
-            margin-right: 8px;
-            font-size: 20px;
+        .task-btn {
+            background: linear-gradient(to right, #2196F3, #1976D2);
         }
         
         .withdraw-btn {
-            background: linear-gradient(to right, #2196F3, #1976D2);
+            background: linear-gradient(to right, #ff9800, #f57c00);
         }
         
         /* Status Messages */
@@ -204,7 +203,6 @@
             border-radius: 10px;
             margin: 15px 0;
             text-align: center;
-            display: none;
         }
         
         .success-message {
@@ -217,6 +215,12 @@
             background: #ffebee;
             color: #f44336;
             border-left: 4px solid #f44336;
+        }
+        
+        .info-message {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-left: 4px solid #2196F3;
         }
         
         /* Bonus Info */
@@ -272,6 +276,21 @@
             color: #4CAF50;
             margin-top: 5px;
         }
+        
+        /* Task Status */
+        .task-status {
+            background: #fff3e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .task-status-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #ff9800;
+        }
     </style>
 </head>
 <body>
@@ -279,12 +298,12 @@
         <!-- Header -->
         <div class="page-header">
             <h1 class="header-title">Online Earning</h1>
-            <p>Complete 3 simple steps to withdraw your earnings</p>
+            <p>Complete steps to withdraw your earnings</p>
         </div>
         
         <!-- Wallet Display -->
         <div class="wallet-section">
-            <div class="wallet-label">Your Earnings:</div>
+            <div class="wallet-label">Your Balance:</div>
             <div class="wallet-amount">₹<span id="walletBalance">0</span></div>
         </div>
         
@@ -294,7 +313,7 @@
             <div class="progress-step">2</div>
             <div class="progress-step">3</div>
             <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                <div class="progress-fill" id="progressFill"></div>
             </div>
         </div>
         
@@ -315,10 +334,6 @@
                 <div class="bonus-item">
                     <span>Verification Bonus:</span>
                     <span class="bonus-amount">+ ₹25</span>
-                </div>
-                <div class="bonus-item">
-                    <span>Total After Verification:</span>
-                    <span class="bonus-amount">₹25</span>
                 </div>
             </div>
             
@@ -356,80 +371,84 @@
                     <span>Additional Earnings Possible:</span>
                     <span class="bonus-amount">₹<span id="additionalEarnings">50</span></span>
                 </div>
-                <div class="bonus-item">
-                    <span>Total Possible:</span>
-                    <span class="bonus-amount">₹<span id="totalPossible">75</span></span>
-                </div>
             </div>
             
             <div id="shareStatus" class="status-message success-message" style="display:none">
                 +₹<span id="addedAmount">0</span> added to your wallet!
             </div>
-            
-            <button id="proceedBtn" class="action-btn" style="display:none; background:#ff9800">
-                PROCEED TO STEP 3
-            </button>
         </div>
         
         <!-- Step 3: Complete Tasks -->
         <div id="step3" class="step-section">
             <div class="step-title">
                 <div class="step-number">3</div>
-                <h3>Complete Tasks & Withdraw</h3>
+                <h3>Complete Your Task</h3>
             </div>
             
-            <p>Complete these simple tasks to earn your final ₹25:</p>
+            <div class="task-status">
+                <div class="task-status-icon">📱</div>
+                <h3>Complete your task to unlock withdrawal</h3>
+                <p>You must complete the task to receive your final ₹25 and be eligible to withdraw</p>
+            </div>
             
-            <div class="status-message success-message">
-                You've earned ₹<span id="earnedSoFar">50</span> already! Complete tasks to reach ₹75.
+            <div class="status-message info-message">
+                <p>Current Balance: ₹<span id="preTaskBalance">50</span></p>
+                <p>After Task Completion: ₹75</p>
+            </div>
+            
+            <button id="completeTaskBtn" class="action-btn task-btn">
+                COMPLETE TASK NOW
+            </button>
+        </div>
+        
+        <!-- Wallet/Withdrawal Section -->
+        <div id="walletPage" class="step-section">
+            <div class="step-title">
+                <div class="step-number">💰</div>
+                <h3>Your Earnings</h3>
             </div>
             
             <div class="bonus-info">
                 <div class="bonus-item">
-                    <span>Task Completion Bonus:</span>
-                    <span class="bonus-amount">+ ₹25</span>
+                    <span>Current Balance:</span>
+                    <span class="bonus-amount">₹<span id="walletPageBalance">0</span></span>
                 </div>
                 <div class="bonus-item">
-                    <span>Total After Completion:</span>
-                    <span class="bonus-amount">₹75</span>
+                    <span>Status:</span>
+                    <span class="bonus-amount" id="taskStatusText">Task Incomplete</span>
                 </div>
             </div>
             
-            <button id="completeTasksBtn" class="action-btn">
-                COMPLETE TASKS & EARN ₹25
-            </button>
-        </div>
-        
-        <!-- Withdrawal Section -->
-        <div id="withdrawalSection" class="step-section">
-            <div class="step-title">
-                <div class="step-number">✓</div>
-                <h3>Withdraw Your Earnings</h3>
+            <div id="withdrawSection" style="display:none">
+                <div class="input-group">
+                    <label class="input-label">Amount (Minimum ₹75)</label>
+                    <input type="number" id="withdrawAmount" class="input-field" placeholder="Enter amount" min="75" />
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">UPI ID</label>
+                    <input type="text" id="withdrawUpi" class="input-field" placeholder="yourname@upi" />
+                </div>
+                
+                <div id="withdrawError" class="status-message error-message" style="display:none">
+                    Please enter valid amount (minimum ₹75) and UPI ID
+                </div>
+                
+                <button id="withdrawBtn" class="action-btn withdraw-btn">
+                    REQUEST WITHDRAWAL
+                </button>
             </div>
             
-            <div class="input-group">
-                <label class="input-label">Amount to Withdraw (Minimum ₹75)</label>
-                <input type="number" id="withdrawAmount" class="input-field" placeholder="Enter amount" min="75" />
+            <div id="completeTaskPrompt" class="status-message info-message">
+                <p>Complete Step 3 task to unlock withdrawal</p>
+                <button id="goToTaskBtn" class="action-btn" style="margin-top:10px; background:#2196F3">
+                    GO TO TASK
+                </button>
             </div>
-            
-            <div class="input-group">
-                <label class="input-label">UPI ID for Payment</label>
-                <input type="text" id="withdrawUpi" class="input-field" placeholder="yourname@upi" />
-                <p class="input-note">Money will be sent within 24-72 hours</p>
-            </div>
-            
-            <div id="withdrawError" class="status-message error-message" style="display:none">
-                Please enter amount above ₹75 and valid UPI ID
-            </div>
-            
-            <button id="withdrawBtn" class="action-btn withdraw-btn">
-                REQUEST WITHDRAWAL
-            </button>
             
             <div id="withdrawSuccess" class="status-message success-message" style="display:none">
-                <h3>Withdrawal Request Successful!</h3>
-                <p>₹<span id="successAmount">0</span> will be credited to your account within 24-72 hours.</p>
-                <p>The amount has been deducted from your wallet.</p>
+                <h3>Withdrawal Request Received!</h3>
+                <p>₹<span id="successAmount">0</span> will be sent to your UPI within 24-72 hours.</p>
             </div>
         </div>
     </div>
@@ -443,32 +462,43 @@
                 groups: 0,
                 friends: 0
             },
-            tasksCompleted: false
+            taskCompleted: false
         };
         
         // Update wallet display
         function updateWallet() {
             document.getElementById('walletBalance').textContent = user.wallet;
             document.getElementById('currentEarnings').textContent = user.wallet;
-            document.getElementById('earnedSoFar').textContent = user.wallet;
+            document.getElementById('preTaskBalance').textContent = user.wallet;
+            document.getElementById('walletPageBalance').textContent = user.wallet;
             
             // Calculate additional earnings possible
             const additional = Math.max(0, 75 - user.wallet);
             document.getElementById('additionalEarnings').textContent = additional;
-            document.getElementById('totalPossible').textContent = Math.min(user.wallet + additional, 75);
             
             // Update progress bar
             const progress = (user.wallet / 75) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
             
-            // Show proceed button if wallet reaches ₹60 in step 2
+            // Auto move to step 3 when reaches ₹60
             if(user.wallet >= 60 && document.getElementById('step2').classList.contains('active')) {
-                document.getElementById('proceedBtn').style.display = 'block';
+                showStep('step3');
             }
             
-            // Automatically show withdrawal if balance >= 75
-            if(user.wallet >= 75) {
-                showStep('withdrawalSection');
+            // Update wallet page
+            updateWalletPage();
+        }
+        
+        // Update wallet/withdrawal page
+        function updateWalletPage() {
+            if(user.taskCompleted) {
+                document.getElementById('taskStatusText').textContent = "Task Completed";
+                document.getElementById('completeTaskPrompt').style.display = 'none';
+                document.getElementById('withdrawSection').style.display = 'block';
+            } else {
+                document.getElementById('taskStatusText').textContent = "Task Incomplete";
+                document.getElementById('completeTaskPrompt').style.display = 'block';
+                document.getElementById('withdrawSection').style.display = 'none';
             }
         }
         
@@ -489,7 +519,7 @@
                 if(stepId === 'step1' && index === 0) step.classList.add('active');
                 if(stepId === 'step2' && index <= 1) step.classList.add('active');
                 if(stepId === 'step3' && index <= 2) step.classList.add('active');
-                if(stepId === 'withdrawalSection') steps.forEach(s => s.classList.add('active'));
+                if(stepId === 'walletPage') steps.forEach(s => s.classList.add('active'));
             });
         }
         
@@ -543,19 +573,28 @@
             }, 3000);
         }
         
-        // Proceed to step 3
-        document.getElementById('proceedBtn').addEventListener('click', function() {
-            showStep('step3');
+        // Step 3: Complete Task
+        document.getElementById('completeTaskBtn').addEventListener('click', function() {
+            // REPLACE THIS WITH YOUR ACTUAL REFERRAL LINK
+            const referralLink = "https://your-referral-link.com/earn";
+            
+            // Redirect to task
+            window.location.href = referralLink;
+            
+            // In a real implementation, you would track task completion
+            // and only then mark as complete and add ₹25
+            // For demo purposes, we'll simulate completion after 3 seconds
+            setTimeout(() => {
+                user.taskCompleted = true;
+                user.wallet += 25;
+                updateWallet();
+                showStep('walletPage');
+            }, 3000);
         });
         
-        // Step 3: Complete Tasks
-        document.getElementById('completeTasksBtn').addEventListener('click', function() {
-            user.tasksCompleted = true;
-            user.wallet += 25;
-            updateWallet();
-            
-            // Show withdrawal section
-            showStep('withdrawalSection');
+        // Go to task from wallet page
+        document.getElementById('goToTaskBtn').addEventListener('click', function() {
+            showStep('step3');
         });
         
         // Withdrawal Request
@@ -565,7 +604,7 @@
             
             // Validate
             if(isNaN(amount) || amount < 75) {
-                document.getElementById('withdrawError').textContent = 'Minimum withdrawal amount is ₹75';
+                document.getElementById('withdrawError').textContent = 'Minimum withdrawal is ₹75';
                 document.getElementById('withdrawError').style.display = 'block';
                 return;
             }
@@ -577,7 +616,7 @@
             }
             
             if(!upiId.includes('@')) {
-                document.getElementById('withdrawError').textContent = 'Please enter a valid UPI ID';
+                document.getElementById('withdrawError').textContent = 'Please enter valid UPI ID';
                 document.getElementById('withdrawError').style.display = 'block';
                 return;
             }
@@ -603,6 +642,7 @@
         
         // Initialize
         updateWallet();
+        showStep('step1');
     </script>
 </body>
 </html>
