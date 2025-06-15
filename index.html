@@ -246,6 +246,12 @@
             border-left: 4px solid #2196F3;
         }
         
+        .warning-message {
+            background: #fff3e0;
+            color: #ff6f00;
+            border-left: 4px solid #ff9800;
+        }
+        
         /* Bonus Info */
         .bonus-info {
             background: #f9f9f9;
@@ -314,6 +320,56 @@
             margin-bottom: 10px;
             color: #ff9800;
         }
+        
+        /* Task Attempts */
+        .attempts-counter {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #f44336;
+        }
+        
+        .modal-message {
+            margin-bottom: 20px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -364,11 +420,11 @@
                 <div class="bonus-info">
                     <div class="bonus-item">
                         <span>Verification Bonus:</span>
-                        <span class="bonus-amount">+ ₹25</span>
+                        <span class="bonus-amount">+ ₹10</span>
                     </div>
                 </div>
                 
-                <button id="verifyBtn" class="action-btn">VERIFY & EARN ₹25</button>
+                <button id="verifyBtn" class="action-btn">VERIFY & EARN ₹10</button>
             </div>
             
             <!-- Step 2: WhatsApp Share -->
@@ -384,23 +440,23 @@
                     <div class="share-option" id="shareGroup">
                         <div class="share-icon">👥</div>
                         <div class="share-label">Share in Group</div>
-                        <div class="share-amount">+ ₹5 per group</div>
+                        <div class="share-amount">+ ₹2 per group</div>
                     </div>
                     <div class="share-option" id="shareFriend">
                         <div class="share-icon">👤</div>
                         <div class="share-label">Share with Friend</div>
-                        <div class="share-amount">+ ₹2 per friend</div>
+                        <div class="share-amount">+ ₹1 per friend</div>
                     </div>
                 </div>
                 
                 <div class="bonus-info">
                     <div class="bonus-item">
                         <span>Current Earnings:</span>
-                        <span class="bonus-amount">₹<span id="currentEarnings">25</span></span>
+                        <span class="bonus-amount">₹<span id="currentEarnings">10</span></span>
                     </div>
                     <div class="bonus-item">
                         <span>Additional Earnings Possible:</span>
-                        <span class="bonus-amount">₹<span id="additionalEarnings">50</span></span>
+                        <span class="bonus-amount">₹<span id="additionalEarnings">10</span></span>
                     </div>
                 </div>
                 
@@ -419,17 +475,26 @@
                 <div class="task-status">
                     <div class="task-status-icon">📱</div>
                     <h3>Complete your task to unlock withdrawal</h3>
-                    <p>You must complete the task to receive your final ₹25 and be eligible to withdraw</p>
+                    <p>You must complete the task to receive your final ₹20</p>
+                </div>
+                
+                <div class="status-message warning-message">
+                    <p>Please complete the task 5 times to get your payment</p>
+                    <p>Attempts: <span id="attemptCount">0</span>/5</p>
                 </div>
                 
                 <div class="status-message info-message">
-                    <p>Current Balance: ₹<span id="preTaskBalance">50</span></p>
-                    <p>After Task Completion: ₹75</p>
+                    <p>Current Balance: ₹<span id="preTaskBalance">20</span></p>
+                    <p>After Task Completion: ₹50</p>
                 </div>
                 
                 <button id="completeTaskBtn" class="action-btn task-btn">
                     COMPLETE TASK NOW
                 </button>
+                
+                <div class="attempts-counter">
+                    Note: You must click this button 5 times to complete the task
+                </div>
             </div>
         </div>
         
@@ -447,14 +512,14 @@
                 </div>
                 <div class="bonus-item">
                     <span>Status:</span>
-                    <span class="bonus-amount" id="taskStatusText">Task Incomplete</span>
+                    <span class="bonus-amount" id="taskStatusText">Task Incomplete (0/5 attempts)</span>
                 </div>
             </div>
             
             <div id="withdrawSection" style="display:none">
                 <div class="input-group">
-                    <label class="input-label">Amount (Minimum ₹75)</label>
-                    <input type="number" id="withdrawAmount" class="input-field" placeholder="Enter amount" min="75" />
+                    <label class="input-label">Amount (Minimum ₹50)</label>
+                    <input type="number" id="withdrawAmount" class="input-field" placeholder="Enter amount" min="50" />
                 </div>
                 
                 <div class="input-group">
@@ -463,7 +528,7 @@
                 </div>
                 
                 <div id="withdrawError" class="status-message error-message" style="display:none">
-                    Please enter valid amount (minimum ₹75) and UPI ID
+                    Please enter valid amount (minimum ₹50) and UPI ID
                 </div>
                 
                 <button id="withdrawBtn" class="action-btn withdraw-btn">
@@ -472,7 +537,7 @@
             </div>
             
             <div id="completeTaskPrompt" class="status-message info-message">
-                <p>Complete Step 3 task to unlock withdrawal</p>
+                <p>Complete Step 3 task (5 attempts) to unlock withdrawal</p>
                 <button id="goToTaskBtn" class="action-btn" style="margin-top:10px; background:#2196F3">
                     GO TO TASK
                 </button>
@@ -485,6 +550,18 @@
         </div>
     </div>
 
+    <!-- Task Failed Modal -->
+    <div id="taskFailedModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title">Task Not Completed</div>
+            <div class="modal-message">
+                <p>Your task attempt was not successful.</p>
+                <p>Please try again. You need <span id="remainingAttempts">5</span> more attempts to complete the task.</p>
+            </div>
+            <button id="modalOkBtn" class="modal-btn">OK</button>
+        </div>
+    </div>
+
     <script>
         // User data
         let user = {
@@ -494,6 +571,7 @@
                 groups: 0,
                 friends: 0
             },
+            taskAttempts: 0,
             taskCompleted: false
         };
         
@@ -505,15 +583,15 @@
             document.getElementById('walletPageBalance').textContent = user.wallet;
             
             // Calculate additional earnings possible
-            const additional = Math.max(0, 75 - user.wallet);
+            const additional = Math.max(0, 20 - user.wallet);
             document.getElementById('additionalEarnings').textContent = additional;
             
             // Update progress bar
-            const progress = (user.wallet / 75) * 100;
+            const progress = (user.wallet / 20) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
             
-            // Auto move to step 3 when reaches ₹60
-            if(user.wallet >= 60 && document.getElementById('step2').classList.contains('active')) {
+            // Auto move to step 3 when reaches ₹20
+            if(user.wallet >= 20 && document.getElementById('step2').classList.contains('active')) {
                 showStep('step3');
             }
             
@@ -528,7 +606,7 @@
                 document.getElementById('completeTaskPrompt').style.display = 'none';
                 document.getElementById('withdrawSection').style.display = 'block';
             } else {
-                document.getElementById('taskStatusText').textContent = "Task Incomplete";
+                document.getElementById('taskStatusText').textContent = `Task Incomplete (${user.taskAttempts}/5 attempts)`;
                 document.getElementById('completeTaskPrompt').style.display = 'block';
                 document.getElementById('withdrawSection').style.display = 'none';
             }
@@ -580,7 +658,7 @@
             
             // Verify UPI
             user.upiVerified = true;
-            user.wallet += 25;
+            user.wallet += 10; // ₹10 for UPI verification
             updateWallet();
             
             // Move to step 2
@@ -603,8 +681,8 @@
             
             window.open(whatsappUrl, '_blank');
             
-            // Add to earnings
-            const amount = type === 'group' ? 5 : 2;
+            // Add to earnings (reduced amounts)
+            const amount = type === 'group' ? 2 : 1; // ₹2 per group, ₹1 per friend
             if(type === 'group') user.shares.groups++;
             else user.shares.friends++;
             
@@ -621,23 +699,44 @@
         
         // Step 3: Complete Task
         document.getElementById('completeTaskBtn').addEventListener('click', function() {
+            // Increment attempts
+            user.taskAttempts++;
+            document.getElementById('attemptCount').textContent = user.taskAttempts;
+            updateWalletPage();
+            
+            // Show failed attempt modal
+            showTaskFailedModal();
+            
+            // Check if reached 5 attempts
+            if(user.taskAttempts >= 5) {
+                // Complete task after 5 attempts
+                user.taskCompleted = true;
+                user.wallet += 20; // Add ₹20 for task completion
+                updateWallet();
+                
+                // Show success message
+                setTimeout(() => {
+                    alert('Task completed successfully! ₹20 has been added to your wallet.');
+                }, 500);
+            }
+        });
+        
+        // Show task failed modal
+        function showTaskFailedModal() {
+            const remaining = 5 - user.taskAttempts;
+            document.getElementById('remainingAttempts').textContent = remaining > 0 ? remaining : 0;
+            document.getElementById('taskFailedModal').style.display = 'flex';
+        }
+        
+        // Close modal
+        document.getElementById('modalOkBtn').addEventListener('click', function() {
+            document.getElementById('taskFailedModal').style.display = 'none';
+            
             // REPLACE THIS WITH YOUR ACTUAL REFERRAL LINK
             const referralLink = "https://your-referral-link.com/earn";
             
             // Redirect to task
             window.location.href = referralLink;
-            
-            // In a real implementation, you would track task completion
-            // and only then mark as complete and add ₹25
-            // For demo purposes, we'll simulate completion after 3 seconds
-            setTimeout(() => {
-                user.taskCompleted = true;
-                user.wallet += 25;
-                updateWallet();
-                
-                // Show wallet tab but don't auto-show withdrawal
-                document.getElementById('walletTab').click();
-            }, 3000);
         });
         
         // Go to task from wallet page
@@ -652,8 +751,8 @@
             const upiId = document.getElementById('withdrawUpi').value.trim();
             
             // Validate
-            if(isNaN(amount) || amount < 75) {
-                document.getElementById('withdrawError').textContent = 'Minimum withdrawal is ₹75';
+            if(isNaN(amount) || amount < 50) { // Minimum ₹50 withdrawal
+                document.getElementById('withdrawError').textContent = 'Minimum withdrawal is ₹50';
                 document.getElementById('withdrawError').style.display = 'block';
                 return;
             }
