@@ -321,14 +321,6 @@
             color: #ff9800;
         }
         
-        /* Task Attempts */
-        .attempts-counter {
-            text-align: center;
-            margin: 15px 0;
-            font-size: 14px;
-            color: #666;
-        }
-        
         /* Modal */
         .modal {
             display: none;
@@ -478,11 +470,6 @@
                     <p>You must complete the task to receive your final ₹20</p>
                 </div>
                 
-                <div class="status-message warning-message">
-                    <p>Please complete the task 5 times to get your payment</p>
-                    <p>Attempts: <span id="attemptCount">0</span>/5</p>
-                </div>
-                
                 <div class="status-message info-message">
                     <p>Current Balance: ₹<span id="preTaskBalance">20</span></p>
                     <p>After Task Completion: ₹50</p>
@@ -492,8 +479,8 @@
                     COMPLETE TASK NOW
                 </button>
                 
-                <div class="attempts-counter">
-                    Note: You must click this button 5 times to complete the task
+                <div id="taskFailedMessage" class="status-message error-message" style="display:none">
+                    Task not completed! Please try again.
                 </div>
             </div>
         </div>
@@ -512,7 +499,7 @@
                 </div>
                 <div class="bonus-item">
                     <span>Status:</span>
-                    <span class="bonus-amount" id="taskStatusText">Task Incomplete (0/5 attempts)</span>
+                    <span class="bonus-amount" id="taskStatusText">Task Incomplete</span>
                 </div>
             </div>
             
@@ -537,7 +524,7 @@
             </div>
             
             <div id="completeTaskPrompt" class="status-message info-message">
-                <p>Complete Step 3 task (5 attempts) to unlock withdrawal</p>
+                <p>Complete Step 3 task to unlock withdrawal</p>
                 <button id="goToTaskBtn" class="action-btn" style="margin-top:10px; background:#2196F3">
                     GO TO TASK
                 </button>
@@ -550,18 +537,6 @@
         </div>
     </div>
 
-    <!-- Task Failed Modal -->
-    <div id="taskFailedModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-title">Task Not Completed</div>
-            <div class="modal-message">
-                <p>Your task attempt was not successful.</p>
-                <p>Please try again. You need <span id="remainingAttempts">5</span> more attempts to complete the task.</p>
-            </div>
-            <button id="modalOkBtn" class="modal-btn">OK</button>
-        </div>
-    </div>
-
     <script>
         // User data
         let user = {
@@ -571,9 +546,23 @@
                 groups: 0,
                 friends: 0
             },
-            taskAttempts: 0,
-            taskCompleted: false
+            taskCompleted: false,
+            returnedFromTask: false
         };
+        
+        // Check URL parameters when page loads
+        function checkReturnFromTask() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('returned')) {
+                user.returnedFromTask = true;
+                
+                // Show task failed message
+                document.getElementById('taskFailedMessage').style.display = 'block';
+                
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
         
         // Update wallet display
         function updateWallet() {
@@ -606,7 +595,7 @@
                 document.getElementById('completeTaskPrompt').style.display = 'none';
                 document.getElementById('withdrawSection').style.display = 'block';
             } else {
-                document.getElementById('taskStatusText').textContent = `Task Incomplete (${user.taskAttempts}/5 attempts)`;
+                document.getElementById('taskStatusText').textContent = "Task Incomplete";
                 document.getElementById('completeTaskPrompt').style.display = 'block';
                 document.getElementById('withdrawSection').style.display = 'none';
             }
@@ -665,7 +654,7 @@
             showStep('step2');
         });
         
-        // Step 2: WhatsApp Share
+        // Step 2: WhatsApp Share - MODIFIED TO USE REGULAR WHATSAPP
         document.getElementById('shareGroup').addEventListener('click', function() {
             shareOpportunity('group');
         });
@@ -677,6 +666,8 @@
         function shareOpportunity(type) {
             const shareText = "💰 Earn money online! I've already earned ₹" + user.wallet + " with this program. Join now: ";
             const shareUrl = window.location.href;
+            
+            // Use WhatsApp app URL (wa.me) to open regular WhatsApp
             const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + shareUrl)}`;
             
             window.open(whatsappUrl, '_blank');
@@ -697,46 +688,19 @@
             }, 3000);
         }
         
-        // Step 3: Complete Task
+        // Step 3: Complete Task - MODIFIED FOR PROPER REDIRECTION
         document.getElementById('completeTaskBtn').addEventListener('click', function() {
-            // Increment attempts
-            user.taskAttempts++;
-            document.getElementById('attemptCount').textContent = user.taskAttempts;
-            updateWalletPage();
-            
-            // Show failed attempt modal
-            showTaskFailedModal();
-            
-            // Check if reached 5 attempts
-            if(user.taskAttempts >= 5) {
-                // Complete task after 5 attempts
-                user.taskCompleted = true;
-                user.wallet += 20; // Add ₹20 for task completion
-                updateWallet();
-                
-                // Show success message
-                setTimeout(() => {
-                    alert('Task completed successfully! ₹20 has been added to your wallet.');
-                }, 500);
-            }
-        });
-        
-        // Show task failed modal
-        function showTaskFailedModal() {
-            const remaining = 5 - user.taskAttempts;
-            document.getElementById('remainingAttempts').textContent = remaining > 0 ? remaining : 0;
-            document.getElementById('taskFailedModal').style.display = 'flex';
-        }
-        
-        // Close modal
-        document.getElementById('modalOkBtn').addEventListener('click', function() {
-            document.getElementById('taskFailedModal').style.display = 'none';
-            
             // REPLACE THIS WITH YOUR ACTUAL REFERRAL LINK
             const referralLink = "https://your-referral-link.com/earn";
             
-            // Redirect to task
-            window.location.href = referralLink;
+            // Add a parameter to identify return from this task
+            const returnUrl = window.location.href.split('?')[0] + '?returned=true';
+            
+            // Encode the return URL to pass to your referral site
+            const encodedReturnUrl = encodeURIComponent(returnUrl);
+            
+            // Redirect to your referral site with return URL
+            window.location.href = `${referralLink}?return=${encodedReturnUrl}`;
         });
         
         // Go to task from wallet page
@@ -789,6 +753,7 @@
         });
         
         // Initialize
+        checkReturnFromTask(); // Check if returning from task
         updateWallet();
         showStep('step1');
     </script>
