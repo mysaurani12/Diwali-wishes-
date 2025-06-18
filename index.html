@@ -16,15 +16,17 @@
             background: #f5f7fa;
             color: #333;
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 100%;
             width: 100%;
             padding: 15px;
+            padding-bottom: 80px;
         }
         
-        /* Header */
         .page-header {
             background: linear-gradient(135deg, #4CAF50, #2E7D32);
             color: white;
@@ -41,7 +43,6 @@
             margin-bottom: 5px;
         }
         
-        /* Wallet Section */
         .wallet-section {
             background: white;
             border-radius: 15px;
@@ -64,7 +65,6 @@
             color: #4CAF50;
         }
         
-        /* Navigation */
         .nav-tabs {
             display: flex;
             background: white;
@@ -87,7 +87,6 @@
             font-weight: bold;
         }
         
-        /* Progress Steps */
         .progress-steps {
             display: flex;
             justify-content: space-between;
@@ -130,7 +129,6 @@
             transition: width 0.5s;
         }
         
-        /* Step Sections */
         .step-section {
             background: white;
             border-radius: 15px;
@@ -165,7 +163,6 @@
             font-size: 14px;
         }
         
-        /* Form Elements */
         .input-group {
             margin-bottom: 15px;
         }
@@ -190,7 +187,6 @@
             margin-top: 5px;
         }
         
-        /* Action Buttons */
         .action-btn {
             background: linear-gradient(to right, #4CAF50, #2E7D32);
             color: white;
@@ -203,6 +199,11 @@
             margin: 20px 0 10px;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .action-btn:active {
+            transform: scale(0.98);
         }
         
         .whatsapp-btn {
@@ -220,7 +221,6 @@
             background: linear-gradient(to right, #ff9800, #f57c00);
         }
         
-        /* Status Messages */
         .status-message {
             padding: 15px;
             border-radius: 10px;
@@ -252,7 +252,6 @@
             border-left: 4px solid #ff9800;
         }
         
-        /* Bonus Info */
         .bonus-info {
             background: #f9f9f9;
             border-radius: 10px;
@@ -271,7 +270,6 @@
             color: #2E7D32;
         }
         
-        /* Share Options */
         .share-options {
             display: flex;
             justify-content: space-between;
@@ -306,7 +304,6 @@
             margin-top: 5px;
         }
         
-        /* Task Status */
         .task-status {
             background: #fff3e0;
             border-radius: 10px;
@@ -321,82 +318,118 @@
             color: #ff9800;
         }
         
-        /* Modal */
-        .modal {
-            display: none;
+        .activity-popup {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 100;
-            justify-content: center;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
             align-items: center;
-        }
-        
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 3s forwards;
             max-width: 90%;
-            width: 400px;
-            text-align: center;
         }
         
-        .modal-title {
+        @keyframes slideIn {
+            from { bottom: -50px; opacity: 0; }
+            to { bottom: 20px; opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .activity-popup-icon {
+            margin-right: 10px;
             font-size: 20px;
-            margin-bottom: 15px;
-            color: #f44336;
         }
         
-        .modal-message {
-            margin-bottom: 20px;
+        .stats-badge {
+            background: #ff5722;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
         }
         
-        .modal-btn {
-            padding: 10px 20px;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .urgency-badge {
             background: #f44336;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 10px;
+            animation: shake 0.5s infinite alternate;
+        }
+        
+        @keyframes shake {
+            from { transform: rotate(-5deg); }
+            to { transform: rotate(5deg); }
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="page-header">
             <h1 class="header-title">Online Earning</h1>
             <p>Complete steps to withdraw your earnings</p>
+            <div class="stats-badge">🔥 25,000+ people earned ₹50 today!</div>
         </div>
         
-        <!-- Wallet Display -->
         <div class="wallet-section">
             <div class="wallet-label">Your Balance:</div>
             <div class="wallet-amount">₹<span id="walletBalance">0</span></div>
         </div>
         
-        <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <div class="nav-tab active" id="tasksTab">Earning Tasks</div>
             <div class="nav-tab" id="walletTab">My Wallet</div>
         </div>
         
-        <!-- Tasks Section -->
         <div id="tasksSection">
-            <!-- Progress Steps -->
             <div class="progress-steps">
                 <div class="progress-step active">1</div>
                 <div class="progress-step">2</div>
                 <div class="progress-step">3</div>
+                <div class="progress-step">4</div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
             
-            <!-- Step 1: UPI Verification -->
             <div id="step1" class="step-section active">
                 <div class="step-title">
                     <div class="step-number">1</div>
@@ -417,9 +450,13 @@
                 </div>
                 
                 <button id="verifyBtn" class="action-btn">VERIFY & EARN ₹10</button>
+                
+                <div class="status-message info-message">
+                    <p>🔥 17,250 active now!</p>
+                    <p><span class="urgency-badge">Only 50 spots left!</span></p>
+                </div>
             </div>
             
-            <!-- Step 2: WhatsApp Share -->
             <div id="step2" class="step-section">
                 <div class="step-title">
                     <div class="step-number">2</div>
@@ -453,11 +490,15 @@
                 </div>
                 
                 <div id="shareStatus" class="status-message success-message" style="display:none">
-                    +₹<span id="addedAmount">0</span> added to your wallet!
+                    ✅ Shared Successfully! You're closer to ₹50 bonus!
+                </div>
+                
+                <div class="status-message info-message">
+                    <p>Share with 5 groups or 10 friends to unlock Step 3</p>
+                    <p><span class="urgency-badge">Hurry!</span></p>
                 </div>
             </div>
             
-            <!-- Step 3: Complete Tasks -->
             <div id="step3" class="step-section">
                 <div class="step-title">
                     <div class="step-number">3</div>
@@ -476,16 +517,41 @@
                 </div>
                 
                 <button id="completeTaskBtn" class="action-btn task-btn">
-                    COMPLETE TASK NOW
+                    COMPLETE TASK TO EARN ₹25
                 </button>
                 
                 <div id="taskFailedMessage" class="status-message error-message" style="display:none">
-                    Task not completed! Please try again.
+                    ❌ Task Unsuccessful. Please try again.
+                    <p>Attempts: <span id="attemptCount">0</span>/3</p>
                 </div>
+            </div>
+            
+            <div id="step4" class="step-section">
+                <div class="step-title">
+                    <div class="step-number">4</div>
+                    <h3>Withdraw Your Earnings</h3>
+                </div>
+                
+                <div class="status-message success-message">
+                    <h3>🎉 Congratulations!</h3>
+                    <p>₹50 has been sent to your UPI ID: <span id="userUpiDisplay">user@upi</span></p>
+                    <p>✅ Status: SUCCESS</p>
+                    <p>🕒 May take 5-10 minutes to reflect in your bank account.</p>
+                </div>
+                
+                <div class="bonus-info">
+                    <div class="bonus-item">
+                        <span>Current Balance:</span>
+                        <span class="bonus-amount">₹<span id="finalBalance">50</span></span>
+                    </div>
+                </div>
+                
+                <button id="withdrawAgainBtn" class="action-btn withdraw-btn">
+                    WITHDRAW AGAIN
+                </button>
             </div>
         </div>
         
-        <!-- Wallet Section -->
         <div id="walletSection" class="step-section" style="display:none">
             <div class="step-title">
                 <div class="step-number">💰</div>
@@ -524,9 +590,9 @@
             </div>
             
             <div id="completeTaskPrompt" class="status-message info-message">
-                <p>Complete Step 3 task to unlock withdrawal</p>
+                <p>Complete all steps to unlock withdrawal</p>
                 <button id="goToTaskBtn" class="action-btn" style="margin-top:10px; background:#2196F3">
-                    GO TO TASK
+                    GO TO TASKS
                 </button>
             </div>
             
@@ -537,7 +603,74 @@
         </div>
     </div>
 
+    <div id="activityPopupContainer"></div>
+
     <script>
+        // Fake user data
+        const fakeUsers = [
+            { name: "Rahul", upi: "rahul@ybl" },
+            { name: "Pooja", upi: "pooja@upi" },
+            { name: "Ajay", upi: "ajay@okaxis" },
+            { name: "Simran", upi: "simran@paytm" },
+            { name: "Gaurav", upi: "gaurav@upi" },
+            { name: "Meena", upi: "meena@oksbi" },
+            { name: "Neeraj", upi: "neeraj@icici" },
+            { name: "Tanya", upi: "tanya@paytm" },
+            { name: "Mohit", upi: "mohit@ybl" },
+            { name: "Aarti", upi: "aarti@upi" },
+            { name: "Vivek", upi: "vivek@okaxis" },
+            { name: "Rani", upi: "rani@oksbi" },
+            { name: "Manish", upi: "manish@upi" },
+            { name: "Seema", upi: "seema@paytm" },
+            { name: "Kunal", upi: "kunal@okicici" },
+            { name: "Sneha", upi: "sneha@upi" },
+            { name: "Harshit", upi: "harshit@ybl" },
+            { name: "Dimple", upi: "dimple@paytm" },
+            { name: "Ankit", upi: "ankit@oksbi" },
+            { name: "Anjali", upi: "anjali@upi" },
+            { name: "Pratik", upi: "pratik@okaxis" },
+            { name: "Radhika", upi: "radhika@ybl" },
+            { name: "Yash", upi: "yash@upi" },
+            { name: "Neha", upi: "neha@paytm" },
+            { name: "Ramesh", upi: "ramesh@oksbi" },
+            { name: "Khushi", upi: "khushi@upi" },
+            { name: "Shubham", upi: "shubham@okicici" },
+            { name: "Divya", upi: "divya@ybl" },
+            { name: "Nikhil", upi: "nikhil@upi" },
+            { name: "Kiran", upi: "kiran@paytm" },
+            { name: "Saurabh", upi: "saurabh@upi" },
+            { name: "Jyoti", upi: "jyoti@oksbi" },
+            { name: "Varun", upi: "varun@okaxis" },
+            { name: "Sakshi", upi: "sakshi@upi" },
+            { name: "Arjun", upi: "arjun@paytm" },
+            { name: "Preeti", upi: "preeti@ybl" },
+            { name: "Deepak", upi: "deepak@upi" },
+            { name: "Kavita", upi: "kavita@oksbi" },
+            { name: "Aman", upi: "aman@upi" },
+            { name: "Ritu", upi: "ritu@okicici" },
+            { name: "Sunny", upi: "sunny@paytm" },
+            { name: "Saloni", upi: "saloni@upi" },
+            { name: "Dev", upi: "dev@ybl" },
+            { name: "Naina", upi: "naina@upi" },
+            { name: "Umesh", upi: "umesh@oksbi" },
+            { name: "Ishita", upi: "ishita@upi" },
+            { name: "Pankaj", upi: "pankaj@okaxis" },
+            { name: "Payal", upi: "payal@ybl" },
+            { name: "Raj", upi: "raj@upi" },
+            { name: "Kriti", upi: "kriti@paytm" }
+        ];
+
+        // Activity messages templates
+        const activityMessages = [
+            { icon: "💸", template: "{name} withdrew ₹50 to {upi}" },
+            { icon: "💬", template: "{name} completed the task" },
+            { icon: "🎬", template: "{name} is watching an ad" },
+            { icon: "⚡", template: "{name} shared to 10 groups" },
+            { icon: "💰", template: "{name} received ₹50 on Paytm" },
+            { icon: "🎉", template: "{name} got ₹50 bonus" },
+            { icon: "🔥", template: Math.floor(Math.random() * 20000) + 1000 + "+ people active now!" }
+        ];
+
         // User data
         let user = {
             wallet: 0,
@@ -546,18 +679,74 @@
                 groups: 0,
                 friends: 0
             },
+            taskAttempts: 0,
             taskCompleted: false,
             returnedFromTask: false
         };
+        
+        // Show activity popup
+        function showActivityPopup() {
+            const container = document.getElementById('activityPopupContainer');
+            
+            // Randomly select message type
+            const messageType = Math.random() > 0.2 
+                ? activityMessages[Math.floor(Math.random() * (activityMessages.length - 1))]
+                : activityMessages[activityMessages.length - 1];
+            
+            // Create popup element
+            const popup = document.createElement('div');
+            popup.className = 'activity-popup';
+            
+            // For stats message
+            if (messageType.template.includes("people active")) {
+                popup.innerHTML = `
+                    <span class="activity-popup-icon">${messageType.icon}</span>
+                    <span>${messageType.template}</span>
+                `;
+            } 
+            // For user messages
+            else {
+                const randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+                const message = messageType.template
+                    .replace('{name}', randomUser.name)
+                    .replace('{upi}', randomUser.upi);
+                
+                popup.innerHTML = `
+                    <span class="activity-popup-icon">${messageType.icon}</span>
+                    <span>${message}</span>
+                `;
+            }
+            
+            container.appendChild(popup);
+            
+            // Remove popup after animation
+            setTimeout(() => {
+                popup.remove();
+            }, 3500);
+        }
+        
+        // Start activity popup interval
+        let activityInterval = setInterval(showActivityPopup, 1500 + Math.random() * 1000);
         
         // Check URL parameters when page loads
         function checkReturnFromTask() {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('returned')) {
                 user.returnedFromTask = true;
+                user.taskAttempts++;
                 
                 // Show task failed message
                 document.getElementById('taskFailedMessage').style.display = 'block';
+                document.getElementById('attemptCount').textContent = user.taskAttempts;
+                
+                // Check if reached max attempts
+                if (user.taskAttempts >= 3) {
+                    user.taskCompleted = true;
+                    showStep('step4');
+                    document.getElementById('userUpiDisplay').textContent = document.getElementById('upiId').value || "user@upi";
+                    user.wallet += 30; // Add final bonus
+                    updateWallet();
+                }
                 
                 // Clean URL
                 window.history.replaceState({}, document.title, window.location.pathname);
@@ -576,7 +765,7 @@
             document.getElementById('additionalEarnings').textContent = additional;
             
             // Update progress bar
-            const progress = (user.wallet / 20) * 100;
+            const progress = (user.wallet / 50) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
             
             // Auto move to step 3 when reaches ₹20
@@ -618,6 +807,7 @@
                 if(stepId === 'step1' && index === 0) step.classList.add('active');
                 if(stepId === 'step2' && index <= 1) step.classList.add('active');
                 if(stepId === 'step3' && index <= 2) step.classList.add('active');
+                if(stepId === 'step4' && index <= 3) step.classList.add('active');
             });
         }
         
@@ -639,22 +829,37 @@
         // Step 1: Verify UPI
         document.getElementById('verifyBtn').addEventListener('click', function() {
             const upiId = document.getElementById('upiId').value.trim();
+            const btn = this;
             
             if(!upiId.includes('@')) {
                 alert('Please enter a valid UPI ID (example: name@upi)');
                 return;
             }
             
-            // Verify UPI
-            user.upiVerified = true;
-            user.wallet += 10; // ₹10 for UPI verification
-            updateWallet();
+            // Show loading
+            btn.innerHTML = '<div class="spinner"></div> Verifying...';
+            btn.disabled = true;
             
-            // Move to step 2
-            showStep('step2');
+            // Simulate verification delay
+            setTimeout(() => {
+                // Verify UPI
+                user.upiVerified = true;
+                user.wallet += 10; // ₹10 for UPI verification
+                updateWallet();
+                
+                // Restore button
+                btn.innerHTML = 'VERIFIED SUCCESSFULLY';
+                
+                // Move to step 2 after delay
+                setTimeout(() => {
+                    showStep('step2');
+                    btn.innerHTML = 'VERIFY & EARN ₹10';
+                    btn.disabled = false;
+                }, 1000);
+            }, 2000);
         });
         
-        // Step 2: WhatsApp Share - MODIFIED TO USE REGULAR WHATSAPP
+        // Step 2: WhatsApp Share
         document.getElementById('shareGroup').addEventListener('click', function() {
             shareOpportunity('group');
         });
@@ -681,17 +886,24 @@
             updateWallet();
             
             // Show success message
-            document.getElementById('addedAmount').textContent = amount;
             document.getElementById('shareStatus').style.display = 'block';
+            
+            // Auto move to step 3 if shared enough
+            if (user.shares.groups >= 5 || user.shares.friends >= 10) {
+                setTimeout(() => {
+                    showStep('step3');
+                }, 1500);
+            }
+            
             setTimeout(() => {
                 document.getElementById('shareStatus').style.display = 'none';
             }, 3000);
         }
         
-        // Step 3: Complete Task - MODIFIED FOR PROPER REDIRECTION
+        // Step 3: Complete Task
         document.getElementById('completeTaskBtn').addEventListener('click', function() {
             // REPLACE THIS WITH YOUR ACTUAL REFERRAL LINK
-            const referralLink = "https://your-referral-link.com/earn";
+            const referralLink = "https://yourreferlink.com?ref=abc123";
             
             // Add a parameter to identify return from this task
             const returnUrl = window.location.href.split('?')[0] + '?returned=true';
@@ -706,7 +918,17 @@
         // Go to task from wallet page
         document.getElementById('goToTaskBtn').addEventListener('click', function() {
             document.getElementById('tasksTab').click();
-            showStep('step3');
+            
+            // Show appropriate step based on progress
+            if (!user.upiVerified) {
+                showStep('step1');
+            } else if (user.wallet < 20) {
+                showStep('step2');
+            } else if (!user.taskCompleted) {
+                showStep('step3');
+            } else {
+                showStep('step4');
+            }
         });
         
         // Withdrawal Request
@@ -758,4 +980,4 @@
         showStep('step1');
     </script>
 </body>
-    </html>
+</html>
